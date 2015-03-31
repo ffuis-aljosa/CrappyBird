@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -22,6 +23,9 @@ public class CrappyPanel extends JPanel implements ActionListener, KeyListener {
     private Timer timer;
     
     public CrappyPanel() {
+        CrappyBird.loadImages();
+        CrappyObstacle.loadImages();
+        
         setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         setLayout(null);
         setBackground(Color.WHITE);
@@ -42,9 +46,22 @@ public class CrappyPanel extends JPanel implements ActionListener, KeyListener {
         
         Graphics2D g2d = (Graphics2D)g;
         
-        g2d.draw(bird.getCircle());
-        g2d.draw(obstacle.getUpperRectangle());
-        g2d.draw(obstacle.getLowerRectangle());
+        drawBird(g2d);
+        drawObstacles(g2d);
+    }
+    
+    private void drawBird(Graphics2D g2d) {
+        g2d.drawImage(CrappyBird.getImage(), bird.getX(), bird.getY(), bird.getWidth(), bird.getHeight(), null);
+    }
+    
+    private void drawObstacles(Graphics2D g2d) {
+        Rectangle2D.Double upperRect = obstacle.getUpperRectangle();
+        Rectangle2D.Double lowerRect = obstacle.getLowerRectangle();
+        
+        int headHeight = 20;
+        
+        g2d.drawImage(CrappyObstacle.getLowerPillarHeadImage(), (int)lowerRect.x, (int)lowerRect.y, (int)lowerRect.width, headHeight, null);
+        g2d.drawImage(CrappyObstacle.getPillarImage(),(int)lowerRect.x, (int)lowerRect.y + headHeight, (int)lowerRect.width, (int)lowerRect.height - headHeight, null);
     }
     
     @Override
