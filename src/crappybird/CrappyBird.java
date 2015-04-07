@@ -1,5 +1,6 @@
 package crappybird;
 
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,15 +16,12 @@ public class CrappyBird {
     private final int BIRD_WIDTH = 50;
     private final int BIRD_HEIGHT = 40;
     
-    private int speedY;
-    private final int gravity;
+    private int speedY = 1;
+    private final int GRAVITY = 2;
 
-    public CrappyBird() {
-        x = 150;
-        y = 0;
-        
-        speedY = 1;
-        gravity = 2;
+    public CrappyBird(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public int getX() {
@@ -56,11 +54,14 @@ public class CrappyBird {
     
     public void move() {
         y += speedY;
-        speedY += gravity;
+        speedY += GRAVITY;
     }
     
     public static BufferedImage getImage() {
         return birdImage;
     }
     
+    public Rectangle2D.Double getBounds() {
+        return new Rectangle2D.Double(x, y, BIRD_WIDTH, BIRD_HEIGHT);
+    }
 }

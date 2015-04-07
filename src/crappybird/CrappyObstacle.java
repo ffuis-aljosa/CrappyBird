@@ -19,10 +19,10 @@ public class CrappyObstacle {
     private Rectangle2D.Double upperRectangle;
     private Rectangle2D.Double lowerRectangle;
     
-    private final int SPEED_X = 3;
+    private final int SPEED_X = 4;
     
-    private final int OBSTACLE_WIDTH = 60;
-    private final int GAP_HEIGHT = 100;
+    private final int OBSTACLE_WIDTH = 80;
+    private final int GAP_HEIGHT = 150;
 
     public CrappyObstacle(int x, int gapY, int maxHeight) {
         this.x = x;
@@ -47,6 +47,10 @@ public class CrappyObstacle {
     
     public void move() {
         x -= SPEED_X;
+    }
+    
+    public boolean isOutOfPanel() {
+        return x + OBSTACLE_WIDTH < 0;
     }
     
     public static BufferedImage getPillarImage() {
